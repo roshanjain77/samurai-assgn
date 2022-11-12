@@ -1,0 +1,7 @@
+DB_HOST=localhost                                               
+DB_USER=postgres
+DB_PASSWORD=MRkk*1234
+DB_NAME=postgres
+DB_PORT=5432
+TOKEN_HOUR_LIFESPAN=24
+API_SECRET=MRkk*1234
