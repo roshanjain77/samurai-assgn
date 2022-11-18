@@ -26,7 +26,38 @@ func VerifyPassword(password,hashedPassword string) error {
 func SaveUser(user *User) (*User, error) {
 
 	fmt.Println(user)
-	err := config.DB.Debug().Create(&user).Error
+	err := config.DB.Create(&user).Error
+	if err != nil {
+		return &User{}, err
+	}
+	return user, nil
+}
+
+func (user *User) FindUserByEmail(email string) (*User, error) {
+	var err error
+	err = config.DB.Model(User{}).Where("email = ?", email).Take(&user).Error
+	if err != nil {
+		return &User{}, err
+	}
+	if gorm.ErrRecordNotFound == err {
+		return &User{}, err
+	}
+	return user, err
+}
+
+
+func (user *User) UpdateUserRole(uid uint32, role string) (*User, error) {
+
+	config.DB = config.DB.Model(&User{}).Where("id = ?", uid).Take(&User{}).UpdateColumns(
+		map[string]interface{}{
+			"role":  role,
+		},
+	)
+	if config.DB.Error != nil {
+		return &User{}, config.DB.Error
+	}
+	// This is the display the updated user
+	err := config.DB.Model(&User{}).Where("id = ?", uid).Take(&user).Error
 	if err != nil {
 		return &User{}, err
 	}
@@ -36,7 +67,7 @@ func SaveUser(user *User) (*User, error) {
 // func (user *User) FindAllUsers() (*[]User, error) {
 // 	var err error
 // 	users := []User{}
-// 	err = DB.Debug().Model(&User{}).Limit(100).Find(&users).Error
+// 	err = DB.Model(&User{}).Limit(100).Find(&users).Error
 // 	if err != nil {
 // 		return &[]User{}, err
 // 	}
@@ -45,7 +76,7 @@ func SaveUser(user *User) (*User, error) {
 
 // func (user *User) FindUserByID(uid uint32) (*User, error) {
 // 	var err error
-// 	err = DB.Debug().Model(User{}).Where("id = ?", uid).Take(&user).Error
+// 	err = DB.Model(User{}).Where("id = ?", uid).Take(&user).Error
 // 	if err != nil {
 // 		return &User{}, err
 // 	}
@@ -55,34 +86,10 @@ func SaveUser(user *User) (*User, error) {
 // 	return user, err
 // }
 
-// func (user *User) UpdateAUser(uid uint32) (*User, error) {
-
-// 	// To hash the password
-// 	err := user.BeforeSave()
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	DB = DB.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).UpdateColumns(
-// 		map[string]interface{}{
-// 			"password":  user.Password,
-// 			"username":  user.Username,
-// 			"email":     user.Email,
-// 		},
-// 	)
-// 	if DB.Error != nil {
-// 		return &User{}, DB.Error
-// 	}
-// 	// This is the display the updated user
-// 	err = DB.Debug().Model(&User{}).Where("id = ?", uid).Take(&user).Error
-// 	if err != nil {
-// 		return &User{}, err
-// 	}
-// 	return user, nil
-// }
 
 // func (user *User) DeleteAUser(uid uint32) (int64, error) {
 
-// 	db := DB.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).Delete(&User{})
+// 	db := DB.Model(&User{}).Where("id = ?", uid).Take(&User{}).Delete(&User{})
 
 // 	if db.Error != nil {
 // 		if gorm.IsRecordNotFoundError(db.Error) {

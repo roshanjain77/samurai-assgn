@@ -18,6 +18,7 @@ func main() {
 	// public.POST("/register", controllers.Register)
 	routes.UserRoute(router)
 	routes.DashboardRoute(router)
+	routes.ManageAccess(router)
 	router.Run(":8088")
 
 }

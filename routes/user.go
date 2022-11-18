@@ -20,3 +20,8 @@ func DashboardRoute(router *gin.Engine) {
 	router.GET("/:id/getdashboard", controllers.GetDashboards)
 	router.GET("/addwidget/:id/:widget", controllers.AddWidget)
 }
+
+func ManageAccess(router *gin.Engine){
+	router.POST("/changeRole", controllers.ChangeRole)
+	router.GET("/getPermissions/:id", controllers.GetPermissions)
+}

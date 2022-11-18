@@ -13,7 +13,7 @@ import (
 var WidgetsMapping = map[string]string{
 	"login":    "Login",
 	"signup":   "Signup",
-	"forgot":   "Forgot",
+	"visualizations":   "Visualizations",
 	"reset":    "Reset",
 	"verify":   "Verify",
 	"logout":   "Logout",
