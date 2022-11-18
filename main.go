@@ -19,6 +19,6 @@ func main() {
 	routes.UserRoute(router)
 	routes.DashboardRoute(router)
 	routes.ManageAccess(router)
-	router.Run(":8088")
+	router.Run(":8081")
 
 }
