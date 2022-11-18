@@ -1,3 +1,4 @@
+PORT=8081
 DB_HOST=ec2-100-26-39-41.compute-1.amazonaws.com                                               
 DB_USER=bleyscuoivtcen
 DB_PASSWORD=4d09430c7db56b94202dea7e789015b6bb48d2f321737c443147ffff3589a49e

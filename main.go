@@ -6,6 +6,8 @@ import (
 	"login-signup-api/routes"
 
 	"github.com/gin-gonic/gin"
+
+	"os"
 )
 
 func main() {
@@ -19,6 +21,6 @@ func main() {
 	routes.UserRoute(router)
 	routes.DashboardRoute(router)
 	routes.ManageAccess(router)
-	router.Run("")
+	router.Run(":" + os.Getenv("PORT"))
 
 }
