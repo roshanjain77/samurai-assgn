@@ -1,7 +1,7 @@
-DB_HOST=localhost                                               
-DB_USER=postgres
-DB_PASSWORD=MRkk*1234
-DB_NAME=postgres
+DB_HOST=ec2-100-26-39-41.compute-1.amazonaws.com                                               
+DB_USER=bleyscuoivtcen
+DB_PASSWORD=4d09430c7db56b94202dea7e789015b6bb48d2f321737c443147ffff3589a49e
+DB_NAME=ddq9g9gj93f206
 DB_PORT=5432
 TOKEN_HOUR_LIFESPAN=24
 API_SECRET=MRkk*1234
